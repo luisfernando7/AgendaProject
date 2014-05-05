@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     AgendaClient \
-    AgendaDB
+    AgendaDB \
+    AgendaModel

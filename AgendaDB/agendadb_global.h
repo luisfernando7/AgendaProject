@@ -1,0 +1,12 @@
+#ifndef AGENDADB_GLOBAL_H
+#define AGENDADB_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(AGENDADB_LIBRARY)
+#  define AGENDADBSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define AGENDADBSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // AGENDADB_GLOBAL_H

@@ -1,18 +1,33 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-05-05T13:48:06
+# Project created by QtCreator 2014-05-05T14:40:27
 #
 #-------------------------------------------------
 
-QT       += core
+QT       += network sql xml xmlpatterns
 
 QT       -= gui
 
 TARGET = AgendaDB
-CONFIG   += console
-CONFIG   -= app_bundle
+TEMPLATE = lib
 
-TEMPLATE = app
+DEFINES += AGENDADB_LIBRARY
+
+SOURCES += agendadb.cpp
+
+HEADERS += agendadb.h\
+        agendadb_global.h
+
+unix {
+    target.path = /usr/lib
+    INSTALLS += target
+}
 
 
-SOURCES += main.cpp
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../AgendaModel/release/ -lAgendaModel
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../AgendaModel/debug/ -lAgendaModel
+else:unix: LIBS += -L$$OUT_PWD/../AgendaModel/ -lAgendaModel
+
+INCLUDEPATH += $$PWD/../AgendaModel
+DEPENDPATH += $$PWD/../AgendaModel

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>construction_firm.ico</file>
+    </qresource>
+</RCC>

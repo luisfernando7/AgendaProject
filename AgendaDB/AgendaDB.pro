@@ -13,10 +13,12 @@ TEMPLATE = lib
 
 DEFINES += AGENDADB_LIBRARY
 
-SOURCES += agendadb.cpp
+SOURCES += agendadb.cpp \
+    providerdb.cpp
 
 HEADERS += agendadb.h\
-        agendadb_global.h
+        agendadb_global.h \
+    providerdb.h
 
 unix {
     target.path = /usr/lib
@@ -25,9 +27,9 @@ unix {
 
 
 
+
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../AgendaModel/release/ -lAgendaModel
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../AgendaModel/debug/ -lAgendaModel
-else:unix: LIBS += -L$$OUT_PWD/../AgendaModel/ -lAgendaModel
 
 INCLUDEPATH += $$PWD/../AgendaModel
 DEPENDPATH += $$PWD/../AgendaModel

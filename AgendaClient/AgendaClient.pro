@@ -33,9 +33,12 @@ else:unix: LIBS += -L$$OUT_PWD/../AgendaModel/ -lAgendaModel
 INCLUDEPATH += $$PWD/../AgendaModel
 DEPENDPATH += $$PWD/../AgendaModel
 
+
+
+
+
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../AgendaDB/release/ -lAgendaDB
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../AgendaDB/debug/ -lAgendaDB
-else:unix: LIBS += -L$$OUT_PWD/../AgendaDB/ -lAgendaDB
 
 INCLUDEPATH += $$PWD/../AgendaDB
 DEPENDPATH += $$PWD/../AgendaDB

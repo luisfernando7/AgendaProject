@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "requestmaterials.h"
+#include "providerdb.h"
 
 #include <QToolBox>
 #include <QMessageBox>
@@ -12,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);
   ui->txtDate->setDate(QDate::currentDate());
   setCentralWidget(ui->toolBox);
+
 }
 
 bool MainWindow::validationFieldsRequest(QString *msg)
@@ -134,6 +136,8 @@ void MainWindow::on_btnAddProvider_clicked()
       return;
     }
   delete message;
+
+
   QMessageBox::information(this,"Agenda da Obra","Fornecedor adicionado com sucesso.",QMessageBox::Ok);
 }
 
@@ -153,5 +157,7 @@ void MainWindow::on_btnAddRequest_clicked()
 
 void MainWindow::on_btnLinkAddProvider_clicked()
 {
+    ProviderDB db;
+    db.AddProvider();
     ui->toolBox->setCurrentIndex(1);
 }

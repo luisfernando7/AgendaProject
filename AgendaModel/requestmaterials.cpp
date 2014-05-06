@@ -1,5 +1,5 @@
 #include "requestmaterials.h"
-
+using namespace model;
 
 Material RequestMaterials::material() const
 {

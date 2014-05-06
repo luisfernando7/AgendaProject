@@ -4,3 +4,4 @@ SUBDIRS += \
     AgendaDB \
     AgendaClient \
     AgendaModel
+

@@ -1,19 +1,26 @@
 #include "providerdb.h"
+#include "material.h"
+#include "connectionfactory.h"
+
+
 #include<QSqlDatabase>
 #include<qdebug.h>
+#include<QException>
 ProviderDB::ProviderDB()
 {
 
 }
 
-bool ProviderDB::AddProvider(Provider p)
+bool ProviderDB::AddProvider(model::Provider p)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
-    db.setDatabaseName("Driver={SQL Server};Server=.\\SQL;Database=dbservent;");
-    db.setUserName("sa");
-    db.setPassword("P@ssw0rd");
-    bool ok = db.open();
+    //MemCheck memChk;
+    QSqlDatabase *db;
 
+    db = ConnectionFactory::conectionInstance();
+    if(db == NULL || !db->isOpen()) return false;
+    //TODO: implementar.
 
-    return ok;
+    db->close();
+    //memChk.Check();
+    return true;
 }

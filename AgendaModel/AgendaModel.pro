@@ -13,15 +13,15 @@ DEFINES += AGENDAMODEL_LIBRARY
 
 SOURCES += agendamodel.cpp \
     material.cpp \
-    provider.cpp \
-    requestmaterials.cpp
+    requestmaterials.cpp \
+    provider_material.cpp
 
 
 HEADERS += agendamodel.h\
         agendamodel_global.h \
     material.h \
-    provider.h \
-    requestmaterials.h
+    requestmaterials.h \
+    provider_material.h
 
 
 unix {

@@ -1,7 +1,8 @@
-#include "provider.h"
+#include "provider_material.h"
 
-
-QString Provider::name() const
+namespace model
+{
+QString model::Provider::name() const
 {
     return _name;
 }
@@ -33,13 +34,14 @@ void Provider::setNumber(int number)
 
 QString Provider::phoneNumber() const
 {
-  return _phoneNumber;
+    return _phoneNumber;
 }
 
 void Provider::setPhoneNumber(const QString &phoneNumber)
 {
-  _phoneNumber = phoneNumber;
+    _phoneNumber = phoneNumber;
 }
 Provider::Provider()
 {
+}
 }

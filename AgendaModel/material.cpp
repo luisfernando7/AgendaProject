@@ -1,5 +1,7 @@
 #include "material.h"
 
+namespace model {
+
 
 QString Material::name() const
 {
@@ -47,4 +49,5 @@ Material::Material()
 Material::~Material()
 {
     
+}
 }

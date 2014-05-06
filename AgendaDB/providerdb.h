@@ -7,7 +7,7 @@ class AGENDADBSHARED_EXPORT ProviderDB
 
 public:
     ProviderDB();
-    bool AddProvider();
+    bool AddProvider(Provider p);
 };
 
 

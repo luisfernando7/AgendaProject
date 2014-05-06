@@ -1,10 +1,11 @@
+#include "agendamodel_global.h"
 #include <QString>
 #include <QDate>
 
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-class Material
+class AGENDAMODELSHARED_EXPORT Material
 {
 private:
   QString _name;

@@ -158,6 +158,7 @@ void MainWindow::on_btnAddRequest_clicked()
 void MainWindow::on_btnLinkAddProvider_clicked()
 {
     ProviderDB db;
-    db.AddProvider();
+    Provider p;
+    bool result = db.AddProvider(p);
     ui->toolBox->setCurrentIndex(1);
 }

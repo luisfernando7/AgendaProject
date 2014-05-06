@@ -2,11 +2,12 @@
 #include<QDate>
 #include "material.h"
 #include "provider.h"
+#include "agendamodel_global.h"
 
 #ifndef REQUESTMATERIALS_H
 #define REQUESTMATERIALS_H
 
-class RequestMaterials
+class AGENDAMODELSHARED_EXPORT RequestMaterials
 {
 private:
   Material _material;

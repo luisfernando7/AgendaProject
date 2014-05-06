@@ -1,20 +1,19 @@
 #include "providerdb.h"
 #include<QSqlDatabase>
-
+#include<qdebug.h>
 ProviderDB::ProviderDB()
 {
 
 }
 
-bool ProviderDB::AddProvider()
+bool ProviderDB::AddProvider(Provider p)
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
-    db.setHostName(".\\SQLEXPRESS");
-    db.setDatabaseName("DBAgenda");
+    db.setDatabaseName("Driver={SQL Server};Server=.\\SQL;Database=dbservent;");
     db.setUserName("sa");
-    db.setPassword("");
+    db.setPassword("P@ssw0rd");
     bool ok = db.open();
-    if(!ok) return false;
-    return true;
-    //Adicionar objeto no banco
+
+
+    return ok;
 }

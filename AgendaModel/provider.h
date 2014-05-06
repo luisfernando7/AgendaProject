@@ -1,8 +1,9 @@
 #include<QString>
+#include"agendamodel_global.h"
 #ifndef PROVIDER_H
 #define PROVIDER_H
 
-class Provider
+class AGENDAMODELSHARED_EXPORT Provider
 {
 private:
   QString _name;

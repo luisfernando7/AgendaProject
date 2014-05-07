@@ -16,6 +16,7 @@ private:
     model::Material _material;
     QString _description;
     QDate _date;
+    int _qtd;
     model::Provider _provider;
 public:
     RequestMaterials();
@@ -27,6 +28,8 @@ public:
     void setDate(const QDate &date);
     model::Provider provider() const;
     void setProvider(const model::Provider &provider);
+    int qtd() const;
+    void setQtd(int qtd);
 };
 }
 #endif // REQUESTMATERIALS_H

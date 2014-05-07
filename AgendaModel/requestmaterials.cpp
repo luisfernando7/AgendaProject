@@ -40,6 +40,16 @@ void RequestMaterials::setProvider(const Provider &provider)
 {
   _provider = provider;
 }
+
+int RequestMaterials::qtd() const
+{
+    return _qtd;
+}
+
+void RequestMaterials::setQtd(int qtd)
+{
+    _qtd = qtd;
+}
 RequestMaterials::RequestMaterials()
 {
 }

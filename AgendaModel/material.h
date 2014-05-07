@@ -12,7 +12,6 @@ class AGENDAMODELSHARED_EXPORT Material
 private:
     QString _name;
     double _prince;
-    int _qtd;
     QString _unity;
 
 public:
@@ -23,7 +22,6 @@ public:
     void setName(const QString &name);
     double prince() const;
     void setPrince(double prince);
-    int qtd() const;
     void setQtd(int qtd);
     QString unity() const;
     void setUnity(const QString &unity);

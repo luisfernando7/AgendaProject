@@ -20,7 +20,8 @@ SOURCES += agendadb.cpp \
 HEADERS += agendadb.h\
         agendadb_global.h \
     providerdb.h \
-    connectionfactory.h
+    connectionfactory.h \
+    DB.h
 
 unix {
     target.path = /usr/lib
@@ -37,3 +38,6 @@ INCLUDEPATH += $$PWD/../AgendaModel
 DEPENDPATH += $$PWD/../AgendaModel
 
 
+
+INCLUDEPATH += $$PWD/../../Agenda
+DEPENDPATH += $$PWD/../../Agenda

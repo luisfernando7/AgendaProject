@@ -23,16 +23,6 @@ void Material::setPrince(double prince)
     _prince = prince;
 }
 
-int Material::qtd() const
-{
-    return _qtd;
-}
-
-void Material::setQtd(int qtd)
-{
-    _qtd = qtd;
-}
-
 QString Material::unity() const
 {
     return _unity;

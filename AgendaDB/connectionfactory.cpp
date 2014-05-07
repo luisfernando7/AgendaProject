@@ -1,6 +1,7 @@
 #include "connectionfactory.h"
 #include <QException>
-
+#include <QSqlQuery>
+#include <QVariant>
 ConnectionFactory::ConnectionFactory()
 {
 }
@@ -8,12 +9,11 @@ ConnectionFactory::ConnectionFactory()
 
 QSqlDatabase *ConnectionFactory::conectionInstance()
 {
-    QSqlDatabase *db =  &QSqlDatabase::addDatabase("QODBC");
-    db->setDatabaseName("Driver={SQL Server};Server=.\\SQL;Database=dbservent;");
+    QSqlDatabase *db =  new QSqlDatabase(QSqlDatabase::addDatabase("QODBC"));
+    db->setDatabaseName("Driver={SQL Server};Server=.\\SQL;Database=dbagenda;");
     db->setUserName("sa");
-    db->setPassword("P@ssw0rd_");
-    if(!db->open()) return NULL;
-    else return db;
+    db->setPassword("P@ssw0rd");
+    return db;
 }
 
 ConnectionFactory::~ConnectionFactory()

@@ -7,10 +7,10 @@
 class AGENDADBSHARED_EXPORT ProviderDB:public DB<class model::Provider>
 {
 
-
-    // DB interface
 public:
     ProviderDB();
+    // DB interface
+public:
     bool Insert(model::Provider object);
     bool Update(model::Provider object);
     bool Delete(int id);

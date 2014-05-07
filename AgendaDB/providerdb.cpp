@@ -3,9 +3,11 @@
 #include "connectionfactory.h"
 
 
-#include<QSqlDatabase>
-#include<qdebug.h>
-#include<QException>
+#include <QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <qdebug.h>
+#include <QException>
+
 ProviderDB::ProviderDB()
 {
 
@@ -16,10 +18,16 @@ bool ProviderDB::Insert(model::Provider p)
     QSqlDatabase *db;
 
     db = ConnectionFactory::conectionInstance();
+    bool ok = db->open() && db->isOpen();
     if(db == NULL || !db->isOpen()) return false;
     //TODO: implementar.
 
 
+    QSqlQuery query = db->exec("SELECT name FROM Provider");
+    QString name;
+    while (query.next()) {
+        name = query.value(0).toString();
+    }
     db->close();
 
     return true;

@@ -159,6 +159,6 @@ void MainWindow::on_btnLinkAddProvider_clicked()
 {
     ProviderDB db;
     model::Provider p;
-    bool result = db.AddProvider(p);
+    bool result = db.Insert(p);
     ui->toolBox->setCurrentIndex(1);
 }

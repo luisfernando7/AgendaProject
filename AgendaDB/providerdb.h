@@ -3,12 +3,14 @@
 #include "agendadb_global.h"
 #include "DB.h"
 #include <qobject.h>
-
+#ifndef PROVIDERDB_H
+#define PROVIDERDB_H
 class AGENDADBSHARED_EXPORT ProviderDB:public DB<class model::Provider>
 {
 
 public:
     ProviderDB();
+    ~ProviderDB();
     // DB interface
 public:
     bool Insert(model::Provider object);
@@ -18,5 +20,5 @@ public:
     QList<model::Provider> SelectAll();
     int Count();
 };
-
+#endif
 

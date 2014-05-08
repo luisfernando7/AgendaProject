@@ -41,6 +41,16 @@ void Provider::setPhoneNumber(const QString &phoneNumber)
 {
     _phoneNumber = phoneNumber;
 }
+
+int Provider::getId() const
+{
+    return id;
+}
+
+void Provider::setId(int value)
+{
+    id = value;
+}
 Provider::Provider()
 {
 }

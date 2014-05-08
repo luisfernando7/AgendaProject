@@ -10,6 +10,7 @@ namespace model {
 class AGENDAMODELSHARED_EXPORT Material
 {
 private:
+    int id;
     QString _name;
     double _prince;
     QString _unity;
@@ -22,9 +23,11 @@ public:
     void setName(const QString &name);
     double prince() const;
     void setPrince(double prince);
-    void setQtd(int qtd);
     QString unity() const;
     void setUnity(const QString &unity);
+    int getId() const;
+    void setId(int value);
 };
 }
+Q_DECLARE_METATYPE(model::Material)
 #endif // MATERIAL_H

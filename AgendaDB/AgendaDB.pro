@@ -15,13 +15,15 @@ DEFINES += AGENDADB_LIBRARY
 
 SOURCES += agendadb.cpp \
     providerdb.cpp \
-    connectionfactory.cpp
+    connectionfactory.cpp \
+    materialdb.cpp
 
 HEADERS += agendadb.h\
         agendadb_global.h \
     providerdb.h \
     connectionfactory.h \
-    DB.h
+    DB.h \
+    materialdb.h
 
 unix {
     target.path = /usr/lib

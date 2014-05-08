@@ -32,6 +32,16 @@ void Material::setUnity(const QString &unity)
 {
     _unity = unity;
 }
+
+int Material::getId() const
+{
+    return id;
+}
+
+void Material::setId(int value)
+{
+    id = value;
+}
 Material::Material()
 {
 }

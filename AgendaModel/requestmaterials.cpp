@@ -11,16 +11,6 @@ void RequestMaterials::setMaterial(const Material &material)
   _material = material;
 }
 
-QString RequestMaterials::description() const
-{
-  return _description;
-}
-
-void RequestMaterials::setDescription(const QString &description)
-{
-  _description = description;
-}
-
 QDate RequestMaterials::date() const
 {
   return _date;

@@ -14,7 +14,6 @@ class AGENDAMODELSHARED_EXPORT RequestMaterials
 {
 private:
     model::Material _material;
-    QString _description;
     QDate _date;
     int _qtd;
     model::Provider _provider;
@@ -22,8 +21,6 @@ public:
     RequestMaterials();
     model::Material material() const;
     void setMaterial(const model::Material &material);
-    QString description() const;
-    void setDescription(const QString &description);
     QDate date() const;
     void setDate(const QDate &date);
     model::Provider provider() const;

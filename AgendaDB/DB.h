@@ -5,8 +5,8 @@ template <typename T>
 class DB
 {
 public:
-    virtual bool Insert(T object)=0;
-    virtual bool Update(T object)=0;
+    virtual bool Insert(T &obj)=0;
+    virtual bool Update(T &obj)=0;
     virtual bool Delete(int id)=0;
     virtual T Select(int id)=0;
     virtual QList<T> SelectAll()=0;

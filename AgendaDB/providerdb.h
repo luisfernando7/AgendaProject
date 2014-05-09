@@ -5,7 +5,7 @@
 #include <qobject.h>
 #ifndef PROVIDERDB_H
 #define PROVIDERDB_H
-class AGENDADBSHARED_EXPORT ProviderDB:public DB<class model::Provider>
+class AGENDADBSHARED_EXPORT ProviderDB:virtual public DB<class model::Provider>
 {
 
 public:
@@ -13,8 +13,8 @@ public:
     ~ProviderDB();
     // DB interface
 public:
-    bool Insert(model::Provider object);
-    bool Update(model::Provider object);
+    bool Insert(model::Provider &object);
+    bool Update(model::Provider &object);
     bool Delete(int id);
     model::Provider Select(int id);
     QList<model::Provider> SelectAll();

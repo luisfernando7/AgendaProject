@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <providerdb.h>
 #include <materialdb.h>
+#include <requestmaterialsdb.h>
 namespace Ui {
   class MainWindow;
 }
@@ -34,6 +35,7 @@ private:
   Ui::MainWindow *ui;
   ProviderDB *providerDB;
   MaterialDB *materialDB;
+  RequestMaterialsDB *requestDB;
 };
 
 #endif // MAINWINDOW_H

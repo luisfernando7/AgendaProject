@@ -66,8 +66,8 @@
       <widget class="QCommandLinkButton" name="btnLinkAddProvider">
        <property name="geometry">
         <rect>
-         <x>280</x>
-         <y>210</y>
+         <x>270</x>
+         <y>240</y>
          <width>101</width>
          <height>41</height>
         </rect>
@@ -164,7 +164,7 @@
         <item>
          <widget class="QLineEdit" name="txtQtd">
           <property name="inputMask">
-           <string>00000000</string>
+           <string>0000;_</string>
           </property>
           <property name="clearButtonEnabled">
            <bool>true</bool>
@@ -193,10 +193,19 @@
         <item>
          <widget class="QLineEdit" name="txtPrice">
           <property name="inputMask">
-           <string>000,00;_</string>
+           <string>00.00</string>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignJustify</set>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
           </property>
           <property name="cursorMoveStyle">
-           <enum>Qt::VisualMoveStyle</enum>
+           <enum>Qt::LogicalMoveStyle</enum>
           </property>
           <property name="clearButtonEnabled">
            <bool>true</bool>

@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "requestmaterials.h"
 #include "providerdb.h"
-
+#include "requestmaterialsdb.h"
+#include "requestmaterials.h"
 #include <QMetaType>
 #include <QToolBox>
 #include <QMessageBox>
@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     providerDB = new ProviderDB;
     materialDB = new MaterialDB;
+    requestDB = new RequestMaterialsDB;
     ui->setupUi(this);
     ui->txtDate->setDate(QDate::currentDate());
     setCentralWidget(ui->toolBox);
@@ -127,15 +128,17 @@ void MainWindow::loadComboboxes()
     //Carregar materiais
     //TODO: implementar rápido essa parada
 
-    ui->cmbMaterial->setCurrentIndex(-1);
+
     List<model::Material> materials =  materialDB->SelectAll();
-    if(materials.count() <= 0) return;
-    foreach (model::Material m, materials)
+    if(materials.count() > 0)
     {
-        ui->cmbMaterial->addItem(m.name(),QVariant::fromValue(m));
+        ui->cmbMaterial->addItem("<Adicionar Material>");
+        foreach (model::Material m, materials)
+        {
+            ui->cmbMaterial->addItem(m.name(),QVariant::fromValue(m));
+        }
+        ui->cmbMaterial->setCurrentIndex(-1);
     }
-
-
 
 
     //Carregar Fornecedores
@@ -195,7 +198,30 @@ void MainWindow::on_btnAddRequest_clicked()
     }
     ui->lblInformation->setText("");
     delete message;
-    QMessageBox::information(this,"Agenda da Obra","Adicionado com sucesso",QMessageBox::Ok);
+    /*Adicionar ao banco o pedido de materiais */
+
+    //Montar Objeto Material
+    model::Material m;
+    m.setName(ui->txtMaterialName->text());
+    m.setPrince(ui->txtPrice->text().toDouble());
+    m.setUnity(ui->txtUnitType->text());
+
+    //Adicionar Material
+    if(materialDB->Insert(m))
+    {
+        QMessageBox::information(this,"Agenda da Obra","Erro ao adicionar material no banco de dados.",QMessageBox::Ok);
+        return;
+    }
+
+    model::RequestMaterials request;
+    request.setMaterial(m);
+    request.setProvider(ui->cmbProvider->itemData(ui->cmbMaterial->currentIndex()).value<model::Provider>());
+    request.setQtd(ui->txtQtd->text().toInt());
+    request.setDate(ui->txtDate->date());
+    if(requestDB->Insert(request))
+        QMessageBox::information(this,"Agenda da Obra","Adicionado com sucesso.",QMessageBox::Ok);
+    else
+        QMessageBox::information(this,"Agenda da Obra","Erro ao adicionar.",QMessageBox::Ok);
 
 }
 
@@ -207,15 +233,33 @@ void MainWindow::on_btnLinkAddProvider_clicked()
 void MainWindow::on_cmbMaterial_currentIndexChanged(int index)
 {
 
-    if(ui->cmbMaterial->currentIndex() > -1)
+    if(ui->cmbMaterial->currentIndex() > -1 && ui->cmbMaterial->currentText() != "<Adicionar Material>")
     {
         model::Material m = ui->cmbMaterial->itemData(index).value<model::Material>();
         ui->txtMaterialName->setText(m.name());
         ui->txtUnitType->setText(m.unity());
-        ui->txtPrice->setText(QString::number(m.prince()));
+        ui->txtPrice->setText(QString::number(m.prince(),'g',2));
         //Deixo os campos readOnly
         ui->txtMaterialName->setReadOnly(true);
         ui->txtUnitType->setReadOnly(true);
         ui->txtPrice->setReadOnly(true);
+        //Mudo a backgraund color
+        ui->txtMaterialName->setStyleSheet("QLineEdit { background-color: rgb(0,198,50) }");
+        ui->txtUnitType->setStyleSheet("QLineEdit { background-color: rgb(0,198,50) }");
+        ui->txtPrice->setStyleSheet("QLineEdit { background-color: rgb(0,198,50) }");
+    }
+    else
+    {
+        ui->txtMaterialName->setText("");
+        ui->txtUnitType->setText("");
+        ui->txtPrice->setText("");
+        //Deixo os campos readOnly
+        ui->txtMaterialName->setReadOnly(false);
+        ui->txtUnitType->setReadOnly(false);
+        ui->txtPrice->setReadOnly(false);
+        //Backgraund color default
+        ui->txtMaterialName->setStyleSheet("QLineEdit { background-color: white}");
+        ui->txtUnitType->setStyleSheet("QLineEdit { background-color: white }");
+        ui->txtPrice->setStyleSheet("QLineEdit { background-color: white }");
     }
 }

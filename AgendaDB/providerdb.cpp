@@ -18,29 +18,33 @@ ProviderDB::~ProviderDB()
     ConnectionFactory::conectionInstance()->close();
 }
 
-bool ProviderDB::Insert(model::Provider p)
+bool ProviderDB::Insert(model::Provider &p)
 {
     QSqlDatabase *db;
 
     db = ConnectionFactory::conectionInstance();
-     if(db == NULL || !db->isOpen()) return false;
+    if(db == NULL || !db->isOpen()) return false;
     //TODO: implementar.
 
     QSqlQuery query;
     query.prepare("INSERT INTO [Provider]([Name],[Street],[Number],[PhoneNumber])"
-                  "VALUES(:name,:street,:number,:phoneNumber)");
+                  "VALUES(:name,:street,:number,:phoneNumber) ; SELECT  @@IDENTITY as Provider");
 
     query.bindValue(":name", p.name());
     query.bindValue(":street", p.street());
     query.bindValue(":number", p.number());
     query.bindValue(":phoneNumber", p.phoneNumber());
-    query.exec();
-
-
-    return true;
+    bool result = query.exec();
+    if(!result) return false;
+    int id;
+    while (query.next()) {
+        id = query.value(0).toInt();
+    }
+    p.setId(id);
+    return false;
 }
 
-bool ProviderDB::Update(model::Provider object)
+bool ProviderDB::Update(model::Provider &object)
 {
     return true;
 }

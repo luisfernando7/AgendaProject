@@ -11,12 +11,30 @@ MaterialDB::MaterialDB()
 
 }
 
-bool MaterialDB::Insert(model::Material object)
+bool MaterialDB::Insert(model::Material &material)
 {
+    /*Goto Implementation!*/
+    QSqlDatabase *db;
+    db = ConnectionFactory::conectionInstance();
+    if(db == NULL || !db->isOpen()) -1;
+    QSqlQuery query;
+    query.prepare("INSERT INTO [Material]([Name],[Price],[Unit])"
+                  "VALUES(:name,:price,:unit); SELECT  @@IDENTITY as Material");
+
+    query.bindValue(":name", material.name());
+    query.bindValue(":price", material.prince());
+    query.bindValue(":unit", material.unity());
+    bool result = query.exec();
+    if(!result) return false;
+    int id;
+    while (query.next()) {
+        id = query.value(0).toInt();
+    }
+    material.setId(id);
     return true;
 }
 
-bool MaterialDB::Update(model::Material object)
+bool MaterialDB::Update(model::Material &material)
 {
     return true;
 }
@@ -38,8 +56,7 @@ QList<model::Material> MaterialDB::SelectAll()
     QSqlDatabase *db;
 
     db = ConnectionFactory::conectionInstance();
-    if(db == NULL || !db->isOpen()) list;
-    //TODO: implementar.
+    if(db == NULL || !db->isOpen()) return list;
 
     QSqlQuery query = db->exec("SELECT [ID],[Name],[Price],[Unit] FROM [Material]");
     while (query.next())

@@ -40,6 +40,16 @@ void RequestMaterials::setQtd(int qtd)
 {
     _qtd = qtd;
 }
+
+int RequestMaterials::id() const
+{
+    return _id;
+}
+
+void RequestMaterials::setId(int id)
+{
+    _id = id;
+}
 RequestMaterials::RequestMaterials()
 {
 }

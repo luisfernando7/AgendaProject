@@ -18,6 +18,7 @@ public:
   bool validationFieldsRequest(QString *msg);
   bool validationFieldsProvider(QString *msg);
   void loadComboboxes();
+  void loadRequestTableView();
   ~MainWindow();
   
 private slots:

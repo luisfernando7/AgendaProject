@@ -57,6 +57,21 @@ bool ProviderDB::Delete(int id)
 model::Provider ProviderDB::Select(int id)
 {
     model::Provider p;
+    QSqlDatabase *db;
+    db = ConnectionFactory::conectionInstance();
+    if(db == NULL || !db->isOpen()) -1;
+    QSqlQuery query;
+    query.prepare("SELECT [ID],[Name],[Street],[Number],[PhoneNumber]FROM [Provider] where [ID] = :idrequest");
+    query.bindValue(":idrequest", id);
+    bool result = query.exec();
+    if(!result) return p;
+    while (query.next()) {
+        p.setId(query.value(0).toInt());
+        p.setName(query.value(1).toString());
+        p.setStreet(query.value(2).toString());
+        p.setNumber(query.value(3).toInt());
+        p.setPhoneNumber(query.value(4).toString());
+    }
     return p;
 }
 

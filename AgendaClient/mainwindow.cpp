@@ -6,6 +6,8 @@
 #include <QMetaType>
 #include <QToolBox>
 #include <QMessageBox>
+#include <QStandardItemModel>
+#include <QDebug>
 #define string QString
 #define List QList
 
@@ -20,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->txtDate->setDate(QDate::currentDate());
     setCentralWidget(ui->toolBox);
     loadComboboxes();
+    loadRequestTableView();
 }
 
 bool MainWindow::validationFieldsRequest(QString *msg)
@@ -70,11 +73,14 @@ bool MainWindow::validationFieldsRequest(QString *msg)
     }
     else ui->txtDate->setStyleSheet("QLineEdit { background-color: white }");
 
-    if(ui->cmbProvider->currentIndex() <= 0)
+    if(ui->cmbProvider->currentIndex() < 0)
     {
-        //TODO: finalizar
+        *msg = "Por favor, selecione um Fornecedor.";
+        ui->cmbProvider->setFocus();
+        ui->cmbProvider->setStyleSheet("QComboBox { background-color: red }");
+        return false;
     }
-
+    else ui->cmbProvider->setStyleSheet("QComboBox { background-color: white }");
     return true;
 }
 
@@ -153,6 +159,21 @@ void MainWindow::loadComboboxes()
 
 }
 
+void MainWindow::loadRequestTableView()
+{
+
+    QList<model::RequestMaterials> localSelectAll = requestDB->SelectAll();
+    ui->tableWidget->setRowCount(localSelectAll.count());
+    for (int row = 0; row < localSelectAll.size(); ++row) {
+        const model::RequestMaterials property = localSelectAll.at(row);
+        ui->tableWidget->setItem(row, 0,new QTableWidgetItem(property.material().name()));
+        ui->tableWidget->setItem(row, 1,new QTableWidgetItem(property.provider().name()));
+        ui->tableWidget->setItem(row, 2, new QTableWidgetItem(QString::number(property.qtd())));
+        ui->tableWidget->setItem(row, 3,new QTableWidgetItem(property.date().toString("dd/MM/yyyy")));
+    }
+    ui->tableWidget->show();
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -202,24 +223,42 @@ void MainWindow::on_btnAddRequest_clicked()
 
     //Montar Objeto Material
     model::Material m;
-    m.setName(ui->txtMaterialName->text());
-    m.setPrince(ui->txtPrice->text().toDouble());
-    m.setUnity(ui->txtUnitType->text());
+    if(ui->cmbMaterial->currentIndex() >= 0)
+    {
+
+        m  = ui->cmbMaterial->itemData(ui->cmbMaterial->currentIndex()).value<model::Material>();
+    }
+    else
+    {
+        m.setName(ui->txtMaterialName->text());
+        m.setPrince(ui->txtPrice->text().toDouble());
+        m.setUnity(ui->txtUnitType->text());
+    }
+
 
     //Adicionar Material
-    if(materialDB->Insert(m))
+
+
+    if(m.getId() <= 0 && materialDB->Insert(m))
     {
         QMessageBox::information(this,"Agenda da Obra","Erro ao adicionar material no banco de dados.",QMessageBox::Ok);
         return;
     }
-
     model::RequestMaterials request;
+    int index = ui->cmbProvider->currentIndex();
+    model::Provider p = ui->cmbProvider->itemData(index).value<model::Provider>();
     request.setMaterial(m);
-    request.setProvider(ui->cmbProvider->itemData(ui->cmbMaterial->currentIndex()).value<model::Provider>());
+    request.setProvider(p);
     request.setQtd(ui->txtQtd->text().toInt());
     request.setDate(ui->txtDate->date());
     if(requestDB->Insert(request))
+    {
         QMessageBox::information(this,"Agenda da Obra","Adicionado com sucesso.",QMessageBox::Ok);
+        ui->btnClear->click();
+        ui->cmbMaterial->setCurrentIndex(-1);
+        ui->cmbProvider->setCurrentIndex(-1);
+        loadRequestTableView();
+    }
     else
         QMessageBox::information(this,"Agenda da Obra","Erro ao adicionar.",QMessageBox::Ok);
 

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>441</width>
+    <width>451</width>
     <height>553</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>431</width>
+      <width>451</width>
       <height>531</height>
      </rect>
     </property>
@@ -31,7 +31,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="pagRequestMaterials">
      <property name="enabled">
@@ -41,8 +41,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>431</width>
-       <height>450</height>
+       <width>98</width>
+       <height>28</height>
       </rect>
      </property>
      <attribute name="label">
@@ -100,6 +100,9 @@
             <width>145</width>
             <height>0</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 0, 0);</string>
           </property>
          </widget>
         </item>
@@ -383,8 +386,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>431</width>
-       <height>450</height>
+       <width>98</width>
+       <height>28</height>
       </rect>
      </property>
      <attribute name="label">
@@ -575,13 +578,56 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>431</width>
+       <width>451</width>
        <height>450</height>
       </rect>
      </property>
      <attribute name="label">
       <string>VISUALIZAÇÃO DAS MOVIMENTAÇÕES DE MATERIAIS</string>
      </attribute>
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>40</y>
+        <width>441</width>
+        <height>331</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>GroupBox</string>
+      </property>
+      <widget class="QTableWidget" name="tableWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>421</width>
+         <height>291</height>
+        </rect>
+       </property>
+       <column>
+        <property name="text">
+         <string>Material</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Fornecedor</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Quantidade</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Data</string>
+        </property>
+       </column>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -590,7 +636,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>441</width>
+     <width>451</width>
      <height>21</height>
     </rect>
    </property>

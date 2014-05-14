@@ -46,8 +46,24 @@ bool MaterialDB::Delete(int id)
 
 model::Material MaterialDB::Select(int id)
 {
+    /*Goto Implementation!*/
     model::Material m;
+    QSqlDatabase *db;
+    db = ConnectionFactory::conectionInstance();
+    if(db == NULL || !db->isOpen()) -1;
+    QSqlQuery query;
+    query.prepare("SELECT [ID],[Name],[Price],[Unit] FROM [Material] where [ID] = :id");
+    query.bindValue(":id", id);
+    bool result = query.exec();
+    if(!result) return m;
+    while (query.next()) {
+        m.setId(query.value(0).toInt());
+        m.setName(query.value(1).toString());
+        m.setPrince(query.value(2).toDouble());
+        m.setUnity(query.value(3).toString());
+    }
     return m;
+
 }
 
 QList<model::Material> MaterialDB::SelectAll()

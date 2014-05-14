@@ -13,6 +13,7 @@ namespace model {
 class AGENDAMODELSHARED_EXPORT RequestMaterials
 {
 private:
+    int _id;
     model::Material _material;
     QDate _date;
     int _qtd;
@@ -27,6 +28,8 @@ public:
     void setProvider(const model::Provider &provider);
     int qtd() const;
     void setQtd(int qtd);
+    int id() const;
+    void setId(int id);
 };
 }
 #endif // REQUESTMATERIALS_H

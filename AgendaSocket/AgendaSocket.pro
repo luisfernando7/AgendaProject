@@ -20,3 +20,10 @@ SOURCES += main.cpp \
 
 HEADERS += \
     socket.h
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../AgendaModel/release/ -lAgendaModel
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../AgendaModel/debug/ -lAgendaModel
+
+INCLUDEPATH += $$PWD/../AgendaModel
+DEPENDPATH += $$PWD/../AgendaModel

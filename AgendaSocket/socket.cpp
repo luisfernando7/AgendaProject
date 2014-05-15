@@ -1,9 +1,15 @@
 #include "socket.h"
 #include <QXmlStreamWriter>
 #include <string>
+
 Socket::Socket(QObject *parent) :
   QObject(parent)
 {
+}
+
+Socket::~Socket()
+{
+    delete socket;
 }
 
 void Socket::Connect()

@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QStandardItemModel>
 #include <QDebug>
+#include <xmlmananger.h>
 #define string QString
 #define List QList
 
@@ -15,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
+
     providerDB = new ProviderDB;
     materialDB = new MaterialDB;
     requestDB = new RequestMaterialsDB;

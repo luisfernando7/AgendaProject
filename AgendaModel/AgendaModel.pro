@@ -14,14 +14,16 @@ DEFINES += AGENDAMODEL_LIBRARY
 SOURCES += agendamodel.cpp \
     material.cpp \
     requestmaterials.cpp \
-    provider_material.cpp
+    provider_material.cpp \
+    xmlmananger.cpp
 
 
 HEADERS += agendamodel.h\
         agendamodel_global.h \
     material.h \
     requestmaterials.h \
-    provider_material.h
+    provider_material.h \
+    xmlmananger.h
 
 
 unix {

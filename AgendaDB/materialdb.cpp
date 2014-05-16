@@ -57,7 +57,7 @@ model::Material MaterialDB::Select(int id)
     bool result = query.exec();
     if(!result) return m;
     while (query.next()) {
-        m.setId(query.value(0).toInt());
+        m.setId(static_cast<int>(query.value(0).toInt()));
         m.setName(query.value(1).toString());
         m.setPrince(query.value(2).toDouble());
         m.setUnity(query.value(3).toString());

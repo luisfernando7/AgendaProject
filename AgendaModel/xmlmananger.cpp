@@ -1,7 +1,8 @@
 #include "xmlmananger.h"
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
-
+#include <qdebug.h>
+#include <iostream>
 XMLMananger::XMLMananger()
 {
 }
@@ -10,9 +11,9 @@ QString XMLMananger::BuildRequestMaterial(model::RequestMaterials request)
 {
     QString output;
     QXmlStreamWriter stream(&output);
-    stream.setAutoFormatting(false);
+    stream.setAutoFormatting(true);
     stream.writeStartDocument();
-
+    stream.writeStartElement("root");
     stream.writeStartElement("request_materials");//Primeiro Elemento
     stream.writeTextElement("id", QString::number(request.id()));
     stream.writeStartElement("material");//Segundo elemento
@@ -31,56 +32,48 @@ QString XMLMananger::BuildRequestMaterial(model::RequestMaterials request)
     stream.writeTextElement("provider_phonenumber",request.provider().phoneNumber());
     stream.writeEndElement();//Terceiro elemento
     stream.writeEndElement();//Primeiro Elemento
+    stream.writeEndElement();
     stream.writeEndDocument();
-     return output;
+    return output;
 }
 
 model::RequestMaterials XMLMananger::ParseRequestMaterial(QString source)
 {
     model::RequestMaterials rm;
-    QXmlStreamReader xml(source);
-    while (!m_streamReader.atEnd()) {
-            QXmlStreamReader::TokenType tt = m_streamReader.readNext();
-            switch (tt) {
-                case QXmlStreamReader::StartElement: {
-                    QString name = m_streamReader.name().toString();
-                    QStandardItem* item = new QStandardItem(name);
-                    item->setData(m_streamReader.lineNumber(),
-                                  LineStartRole);             /* Custom data() */
-                    QXmlStreamAttributes attrs = m_streamReader.attributes();
-                    QStringList sl;
-                    sl << tr("Line# %1").arg(m_streamReader.lineNumber());
-                    foreach (QXmlStreamAttribute attr, attrs) {
-                        QString line = QString("%1='%2'").arg(attr.name().toString())
-                                        .arg(attr.value().toString());
-                        sl.append(line);
-                    }
-                    item->setToolTip(sl.join("\n"));
-                    if (m_currentItem == 0)
-                       setItem(0, 0, item);                   /* Set root item in model. */
-                    else
-                       m_currentItem->appendRow(item);        /* Add as a child to the current item. */
-                    m_currentItem = item;
-                    break; }
-                case QXmlStreamReader::Characters: {
-                    QString tt = m_currentItem->toolTip();
-                    tt.append("\n");
-                    tt.append(m_streamReader.text().toString());
-                    m_currentItem->setToolTip(tt);
-                    break; }
-                case QXmlStreamReader::EndElement:
-                    m_currentItem->setData(m_streamReader.lineNumber(), LineEndRole);
-                    m_currentItem = m_currentItem->parent();  /* Go up the tree. */
-                    break;
-                case QXmlStreamReader::EndDocument:
-                default:
-                    break;
-            }
+    model::Material m;
+    model::Provider p;
+    QXmlStreamReader xs(source);
+    while (!xs.atEnd()) {
+        if (xs.readNextStartElement())
+        {
+            if(xs.name() =="id")
+                rm.setId(xs.readElementText().toInt());
+            if(xs.name() == "material_id")
+                m.setId(xs.readElementText().toInt());
+            if(xs.name() == "material_name")
+                m.setName(xs.readElementText());
+            if(xs.name()=="material_prince")
+                m.setPrince(xs.readElementText().toDouble());
+            if(xs.name() == "material_unit")
+                m.setUnity(xs.readElementText());
+            if(xs.name() == "date")
+                rm.setDate(QDate::fromString(xs.readElementText(),"dd/MM/yyyy"));
+            if(xs.name() == "qtd")
+                rm.setQtd(xs.readElementText().toInt());
+            if(xs.name() == "provider_id")
+                p.setId(xs.readElementText().toInt());
+            if(xs.name() == "provider_name")
+                p.setName(xs.readElementText());
+            if(xs.name() == "provider_street")
+                p.setStreet(xs.readElementText());
+            if(xs.name() == "provider_number")
+                p.setNumber(xs.readElementText().toInt());
+            if(xs.name() == "provider_phonenumber")
+                p.setPhoneNumber(xs.readElementText());
         }
-    bool error = xml.hasError();
-    QStringRef text = xml.text();
-    QXmlStreamAttributes attributes = xml.attributes();
-    QString id = attributes.value("request_materials").toString();
+    }
+    rm.setMaterial(m);
+    rm.setProvider(p);
     return rm;
 
 }
